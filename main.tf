@@ -1,5 +1,5 @@
 resource "aws_security_group" "docker_sg" {
-  name = "terraform-docker-sg"
+  name_prefix = "terraform-docker-sg-"
 
   ingress {
     from_port   = 22
@@ -36,7 +36,7 @@ resource "aws_instance" "docker_ec2" {
 
   vpc_security_group_ids = [aws_security_group.docker_sg.id]
 
-user_data = <<-EOF
+  user_data = <<-EOF
   #!/bin/bash
   yum update -y
   yum install docker -y
